@@ -11,7 +11,7 @@ class Dot {
   boolean reachedGoal = false;
 
   Dot() {
-    brain = new Brain(400);
+    brain = new Brain(200);
 
     pos = new PVector(width/2, height);
     vel = new PVector(0, 0);
@@ -24,7 +24,7 @@ class Dot {
   }
   
   void update() {
-     if (!dead && !reachedGoal) {
+     if (!dead) {
        move();
        if (pos.x > width || pos.x < 2 || pos.y > height || pos.y < 2) 
        { 
@@ -57,7 +57,7 @@ class Dot {
    float dist = (dist(goal.x, goal.y, pos.x, pos.y))/height;
    float shortTime = height/maxVel;
    float time = sqrt((timeToGoal - shortTime)*(timeToGoal - shortTime))/400;
-   fitness = 1/((dist + time)/2);// + 1/(timeToGoal);
+   fitness = 1/((dist *dist));// + 1/(timeToGoal);
    System.out.println(dist + " " + time + "  " + fitness);
   }
   

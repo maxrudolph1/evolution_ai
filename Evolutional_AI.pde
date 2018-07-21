@@ -5,7 +5,7 @@ void setup() {
   size(400, 400);
 
   pop = new Population(200);
-  goal = new Goal(200, 10);
+  goal = new Goal(height/2, width/2);
   goal.show();
 }
 
