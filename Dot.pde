@@ -23,16 +23,22 @@ class Dot {
     ellipse(pos.x, pos.y, 4, 4);
   }
   
-  void update() {
+  void update(Obstacle[] obs) {
      if (!dead && !reachedGoal) {
        move();
-       if (pos.x > width || pos.x < 2 || pos.y > height || pos.y < 2 ||
-       (pos.x > width/2-50 && pos.x < (width/2+50) && pos.y > height/2 && pos.y < (height/2+50))) 
-       { 
+       if (pos.x > width || pos.x < 2 || pos.y > height || pos.y < 2 )
+       dead = true;
+       
+       for (int k = 0; k < obs.length; k++) {
+       if(pos.x > obs[k].pos.x && pos.x < (obs[k].wide+obs[k].pos.x)  &&
+        pos.y < (obs[k].pos.y + obs[k].tall) && 
+        pos.y > obs[k].pos.y) 
+       
          dead = true; 
  
          
-       } else if(dist(pos.x, pos.y, goal.x, goal.y) < 6) {
+       } 
+       if(dist(pos.x, pos.y, goal.x, goal.y) < 6) {
          
          reachedGoal = true;
 
@@ -56,10 +62,10 @@ class Dot {
   
   void calcFit() {
    if( reachedGoal ) {
-    fitness = 1.0/(brain.step * brain.step); 
-   } else {
+    fitness = 1.0/(brain.step * brain.step) + 1.0/16.0; 
+     } else {
      float dist = dist(pos.x , pos.y, goal.x, goal.y);
-    fitness = 1.0 / ( dist * dist);
+      fitness = 1.0 / ( dist * dist);
    }
    
    

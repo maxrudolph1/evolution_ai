@@ -19,9 +19,9 @@ class Population {
   }
 
 
-  void update() {
+  void update(Obstacle[] obs) {
     for (Dot dot : dots) {
-      dot.update();
+      dot.update(obs);
     }
   }
   void calcFit() {
